@@ -48,7 +48,8 @@
                 -->
             </div>
 
-            <div class="subject-name">来自 <a href="${contextPath}/user/${owner.id}">${owner.name!}</a></div>
+            <#--<div class="subject-name">来自 <a href="${contextPath}/user/${owner.id}">${owner.name!}</a></div>-->
+            <div class="subject-name">来自 <a href="${contextPath}/user/${owner.id}">${owner.username!}</a></div>
         </div>
 
 

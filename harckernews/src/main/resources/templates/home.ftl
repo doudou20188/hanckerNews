@@ -5,11 +5,12 @@
     <div class="container" id="daily">
         <div class="jscroll-inner">
             <div class="daily">
-        <#assign  cur_date =''/>
+
+           <#assign  cur_date =''/>
            <#list vos as vo >
             <#if cur_date != vo.news.createdDate?string("yyyy-MM-dd")>
                  <#if vo_index gt 0 >
-                      </div> &lt;#&ndash;   上一个要收尾 &ndash;&gt;
+                      </div> <#--   上一个要收尾 -->
                  </#if>
                 <#assign  cur_date =vo.news.createdDate?string("yyyy-MM-dd")/>
             <h3 class="date">
@@ -42,7 +43,9 @@
                             <div class="meta">
                                 ${vo.news.link!}
                                 <span>
+                                            <#--评论数量-->
                                             <i class="fa icon-comment"></i> ${vo.news.commentCount!}
+
                                         </span>
                             </div>
                         </div>
@@ -55,12 +58,12 @@
 
                     </div>
 
-                    <div class="subject-name">来自 <a href="${contextPath!}/user/${vo.user.id}/">${vo.user.name}</a></div>
+                    <div class="subject-name">来自 <a href="${contextPath!}/user/${vo.user.id}/">${vo.user.username}</a></div>
                 </div>
 
 
               <#if vo_index == vos?size >
-                 </div>  &lt;#&ndash;最后有个元素要收尾 &ndash;&gt;
+                 </div>  <#--最后有个元素要收尾 -->
               </#if>
 
             </#list>

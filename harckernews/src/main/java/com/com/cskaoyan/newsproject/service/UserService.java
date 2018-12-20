@@ -11,4 +11,7 @@ public interface UserService {
     User findUser(User user);
 
     boolean register(User user);
+
+    User findUserById(Integer id);
+
 }

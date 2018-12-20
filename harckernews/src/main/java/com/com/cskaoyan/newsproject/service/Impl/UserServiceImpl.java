@@ -1,4 +1,4 @@
-package com.com.cskaoyan.newsproject.service.Imol;
+package com.com.cskaoyan.newsproject.service.Impl;
 
 import com.com.cskaoyan.newsproject.bean.User;
 import com.com.cskaoyan.newsproject.dao.UserMapper;
@@ -33,5 +33,11 @@ public class UserServiceImpl implements UserService {
             b=true;
         }
         return b;
+    }
+
+    @Override
+    public User findUserById(Integer id) {
+        User user = userMapper.selectByPrimaryKey(id);
+        return user;
     }
 }

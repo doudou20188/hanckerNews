@@ -1,6 +1,8 @@
 package com.com.cskaoyan.newsproject.controller;
 
+import com.com.cskaoyan.newsproject.bean.News;
 import com.com.cskaoyan.newsproject.bean.User;
+import com.com.cskaoyan.newsproject.service.NewsService;
 import com.com.cskaoyan.newsproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,20 +21,41 @@ import java.util.Map;
  * @Date: 2018/12/18 0018
  */
 @Controller
-public class homeController {
+public class HomeController {
     @Autowired
     UserService userService;
-
+    @Autowired
+    NewsService newsService;
 
     @RequestMapping("/")
     public String trunToHome(Model model,HttpSession session){
         model.addAttribute("contextPath","");
         User user = (User) session.getAttribute("user");
         model.addAttribute("user",user);
+        //获取所有的new 和user
+        List<News>newsList= newsService.findAllNews();
         ArrayList vos = new ArrayList();
-        HashMap hashMap = new HashMap();
+        for (News news:
+             newsList) {
+            HashMap hashMap = new HashMap();
+            Integer userId = news.getUserId();
+            User userById=userService.findUserById(userId);
+            hashMap.put("user",userById);
+            hashMap.put("news",news);
+            //暂且未知Like 的作用
+            hashMap.put("like",20);
 
 
+            vos.add(hashMap);
+        }
+        model.addAttribute("vos",vos);
+        if (user==null){
+
+            model.addAttribute("pop",0); //检测是否弹框登陆
+        }else {
+            model.addAttribute("pop",1);
+
+        }
         return "home";
     }
     /**
